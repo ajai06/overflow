@@ -1,0 +1,36 @@
+<div class="row mt-5">
+    <div class="col-md-8 mx-auto">
+        <div class="card border-success">
+            <div class="card-header">
+                <h3 class="">Login</h3>
+            </div>
+            <div class="card-body">
+                <form action="" class="form" [formGroup]="loginForm" (ngSubmit)="onSubmit()">
+                    <div class="form-group">
+                        <label for="">Email</label>
+                        <input type="email" class="form-control" formControlName="email" email="true" name="email"
+                        [ngClass]="{'is-invalid': submitted && check.email.errors}" required>
+                        <div class="alert alert-danger mt-1" *ngIf="submitted && check.email.errors">
+                            <small *ngIf="check.email.errors.required">Email required</small>
+                            <small *ngIf="check.email.errors.email">Enter Valid email</small>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="">Password</label>
+                        <input type="password" class="form-control" formControlName="password" name="password"
+                        [ngClass]="{'is-invalid': submitted && check.password.errors}" required>
+                        <div class="alert alert-danger mt-1" *ngIf="submitted && check.password.errors">
+                            <small *ngIf="submitted && check.password.errors.required">Enter Your Password</small>
+                        </div>
+                    </div>
+                    <div class="alert alert-danger" *ngIf="loginError">
+                        <small>{{loginError}}</small>
+                    </div>
+
+                    <button type="submit" [disabled]="loading" class="btn btn-success float-right">Login</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,29 @@
+<div class="mt-2">
+        <nav class="navbar bg-dark justify-content-between">
+                <h3>All Questions</h3>
+                <input class="form-control mr-sm-2" style="width:auto"
+             type="text" placeholder="Search Questions" [(ngModel)]="keyword"
+              name="keyword"  aria-label="Search">
+                  <button class="btn btn-success" routerLink="/ask" type="submit">Ask Question</button>
+        </nav>
+
+        <div class=" col-md-8 mt-3 mb-3"
+         *ngFor= "let question of questions | paginate:{itemsPerPage:3, currentPage:page} | filter:keyword">
+            <div class="card border-dark text-center">
+                <div class="card-body">
+                        <div *ngIf="!questions?.length > 0">
+                            <p>No messages</p>
+                        </div>
+                        <div *ngIf="questions?.length > 0">
+                            <a routerLink="/forum/{{question.id}}">
+                            <h4   class="card-title text-secondary">{{question.title}}</h4>
+                            </a>
+                            <p class="card-text">{{question.question}}</p>
+                        </div>
+                        
+                </div>
+            </div>
+        </div>
+        <pagination-controls *ngIf=questions (pageChange)="page=$event"></pagination-controls>
+
+</div>

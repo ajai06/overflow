@@ -1,0 +1,37 @@
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+  <a class="navbar-brand" routerLink="/forum"> <i class="fab fa-stack-overflow"></i>OverFlow</a>
+
+  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+
+     <div class="collapse navbar-collapse" id="navbarSupportedContent">
+
+      <a class="nav-link text-light" *ngIf="authService.loggedIn()"
+       routerLinkActive="active" routerLink="/my-questions" >My Questions</a>
+      <a class="nav-link text-light" *ngIf="authService.loggedIn()" routerLink="active"
+      routerLink="/my-answers">My Answers</a>
+
+        <form class="form-inline ml-auto">
+        </form>
+
+        <ul class="navbar-nav ml-auto">
+              <a class="nav-link" *ngIf="!authService.loggedIn()"  routerLink="/login" routerLinkActive="active">Login</a>
+              <a class="nav-link" *ngIf="!authService.loggedIn()" routerLink="/register" routerLinkActive="active">Register</a>
+              <a class="nav-link" *ngIf="authService.loggedIn()" routerLink="" (click)="authService.logoutUser()" routerLinkActive="active">Logout</a>
+        </ul>
+
+     </div>
+
+</nav>
+<div>
+  <ul *ngIf="results">
+    <li *ngFor="let result of results">{{result.title}}</li>
+  </ul>
+</div>
+
+<div class="container">
+  <div class="col-md-12">
+   <router-outlet></router-outlet>
+  </div>
+</div>

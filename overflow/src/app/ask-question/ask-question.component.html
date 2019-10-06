@@ -1,0 +1,32 @@
+<div class="row mt-5">
+    <div class="col-lg-8 mx-auto">
+        <div class="card border-primary">
+            <div class="card-header">
+                <h3>Ask Question !</h3>
+            </div>
+            <div class="card-body">
+                <form action="" class="form" [formGroup]="askForm" (ngSubmit)="onSubmit()">
+                    <div class="form-group">
+                        <label for="">Title</label>
+                        <input type="text" class="form-control" formControlName="title" name="title" required
+                        [ngClass]="{'is-invalid': submitted && check.title.errors}">
+                        <div *ngIf="submitted && check.title.errors" class="alert alert-danger mt-1">
+                            <small *ngIf="check.title.errors.required">Please add title</small>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="">Question</label>
+                        <textarea name="question" class="form-control" formControlName="question" cols="30" rows="5" required
+                        [ngClass]="{'is-invalid': submitted && check.question.errors}"></textarea>
+                        <div *ngIf="submitted && check.question.errors" class="alert alert-danger mt-1">
+                            <small *ngIf="check.question.errors.required">please mention your question</small>
+                            <small *ngIf="check.question.errors.minlength">Atleast 10 chracs required</small>
+                        </div>
+                    </div>
+                    <button type="submit" class="btn btn-primary">Post Question</button>
+                    <button type="button" class="btn btn-danger float-right" routerLink='/forum'>Back</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>

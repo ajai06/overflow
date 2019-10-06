@@ -1,0 +1,60 @@
+<div *ngIf="question" class="row mt-5">
+    <div class="col-md-10">
+        <div class="card border-dark">
+            <div class="card-header">
+                <h5>Titile: {{question.title}}</h5>
+                <p>Question: {{question.question}}</p>
+                <div>
+                    <span>asked by: {{question.user.name}}</span>
+                    <span class="float-right">created at: {{question.created_at | date}}</span>
+                </div>
+                <div class="mt-2">
+                    <button class="btn btn-success mr-2">Like</button>
+                    <button class="btn btn-warning mr-2">Dislike</button>
+                    <button *ngIf="authService.loggedIn() && idVerify()" class="btn btn-danger float-right ml-2"
+                    mwlConfirmationPopover (confirm)="deleteQuestion(question.id)" (cancel)="cancelClicked = true"
+                      >Delete Question</button>
+                    <button *ngIf="authService.loggedIn() && idVerify()" class="btn btn-info float-right"
+                    routerLink="/forum/edit/{{id}}">Edit Question</button>
+                </div>
+            </div>
+        </div>
+        <nav class="navbar mt-3 justify-content-between">
+            <h3>Answers</h3>
+            <button class="btn btn-primary float-right" type="submit" (click)="toggle()">{{buttonName}}</button>
+        </nav>
+        <div *ngIf="edited">
+            <form class="form col-md-8" [formGroup]="answerForm" (ngSubmit)="postAnswer()">
+                <div class="form-group">
+                        <textarea formControlName="answer" class="form-control mb-3" cols="30" rows="5" required
+                        [ngClass]="{'is-invalid': submitted && check.answer.errors}"></textarea>
+                        <div *ngIf="submitted && check.answer.errors" class="alert alert-danger">
+                            <small *ngIf="submitted && check.answer.errors.required">Please Enter your Answer</small>
+                        </div>
+                    <button type="submit" class="btn btn-success">Submit</button>
+                </div>
+            </form>
+        </div>
+        <div class="card border-success mt-2 " *ngFor="let replay of answers">
+            <div class="card-text px-2">
+                <p class=""><strong>Answer:</strong> {{replay.answer}}</p>
+                <span>Replied by: {{replay.user.name}}</span>
+                <span class="float-right">answered at: {{replay.updated_at | date}}</span>
+                <div class="mb-1">
+                    <button *ngIf="authService.loggedIn() && replay.user_id==userId" type="submit"
+                     class="btn btn-info mr-2" (click)="editer()">{{editButton}}</button>
+                    <button *ngIf="authService.loggedIn() && replay.user_id==userId" class="btn btn-danger"
+                    type="submit"
+                    mwlConfirmationPopover placement="right" (confirm)="deleteAnswer(replay.id)"
+                    (cancel)="cancelClicked = true">Delete Answer</button>
+                </div>
+                <div *ngIf="edit && replay.user_id==userId" >
+                    <div class="form col-md-8">
+                    <textarea [(ngModel)]=replay.answer class="form-control" cols="30" rows="3"></textarea>
+                    <button (click)="editAnswer()" class="btn btn-success">Submit</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

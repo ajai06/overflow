@@ -1,0 +1,19 @@
+<div class="row mt-5">
+    <div class="col-md-10">
+        <div class="card border-warning">
+            <h4 class="text-center">Submit Your Answer</h4>
+            <form action="" class="form col-md-10" [formGroup]="answerForm" (ngSubmit)="postAnswer()">
+                <div class="form-group">
+                    <label for="">Your Answer</label>
+                    <textarea formControlName="answer" class="form-control mb-3" cols="30" rows="5" required
+                    [ngClass]="{'is-invalid': submitted && check.answer.errors}"></textarea>
+                    <div *ngIf="submitted && check.answer.errors" class="alert alert-danger">
+                        <small *ngIf="submitted && check.answer.errors.required">Please Enter your Answer</small>
+                    </div>
+                    <button type="submit" class="btn btn-success">Submit Answer</button>
+                    <button class="btn btn-danger float-right" (click)="goBack()">Go back</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>

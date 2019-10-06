@@ -1,0 +1,19 @@
+<div class="mt-2">
+    <h3 class="mb-4">My Questions</h3>
+
+    <div *ngIf="questions?.length === 0" >
+            <h5>No Question Asked Yet!</h5>
+    </div>
+
+    <div class="col-md-8 mb-3" *ngFor="let question of questions">
+        <div class="card border-dark">
+            <div class="card-body"> 
+                <h4 class="card-title">Title: <a routerLink="/forum/{{question.id}}" class="text-dark">{{question.title}}</a></h4>
+                <p class="card-text">Question: {{question.question}}</p>
+                <button class="btn btn-info mr-2">Edit</button>
+                <button class="btn btn-danger">Delete</button>
+                <span class="float-right">Created at: {{question.created_at | date}}</span>
+            </div>
+        </div>
+    </div>
+</div>

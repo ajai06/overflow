@@ -1,0 +1,68 @@
+<div class="row mt-5">
+    <div class="col-md-8 mx-auto">
+        <div class="card border-info">
+            <div class="card-header">
+                <h3 class="mb-0">Register</h3>
+            </div>
+            <div class="card-body">
+
+                <form action="" class="form" [formGroup]="registerForm" (ngSubmit)="onSubmit()">
+
+                    <div class="form-group">
+                        <label for="">Username</label>
+                        <input type="text" class="form-control" formControlName="name" required
+                        [ngClass]="{'is-invalid': submitted && check.name.errors}">
+                        <div class="alert alert-danger mt-1" *ngIf="submitted && check.name.errors">
+                        <small *ngIf="check.name.errors.required">name required</small>
+                        <small *ngIf="check.name.errors.minlength">Minimum 3 characters required</small>
+                        <small *ngIf="check.name.errors.maxlength">Maxmium 20 characters allowed</small>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="">Email</label>
+                        <input type="email" class="form-control" formControlName="email" email="true" required
+                        [ngClass]="{'is-invalid': submitted && check.email.errors}">
+                        <div class="alert alert-danger mt-1" *ngIf="submitted && check.email.errors">
+                            <small *ngIf="check.email.errors.required">Email Required</small>
+                            <small *ngIf="check.email.errors.email">Please enter valid email</small>
+                        </div>
+                        <div class="alert alert-danger mt-1" *ngIf="emailerror">
+                            <small>{{emailerror}}</small>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="">Password</label>
+                        <input type="password" class="form-control" formControlName="password" name="password"
+                        required [ngClass]="{'is-invalid': submitted && check.password.errors}">
+                         <div class="alert alert-danger mt-1" *ngIf="submitted && check.password.errors">
+                             <small *ngIf="check.password.errors.required">Password Required</small>
+                             <small *ngIf="check.password.errors.minlength">Atleast 8 characters required</small>
+                         </div>
+                    </div>
+
+                     <div class="form-group">
+                        <!-- <label for="">Confirm Password</label>
+                         <input type="password" class="form-control" formControlName="confirmPassword"
+                         name="confirmPassword" required [class.is-invalid]="registerForm.get('confirmPassword').invalid &&
+                         registerForm.get('confirmPassword').touched">
+                         <div class="alert alert-danger mt-1" *ngIf="registerForm.get('confirmPassword').invalid &&
+                         registerForm.get('confirmPassword').touched">
+                         <small *ngIf="registerForm.get('confirmPassword').errors.required">Please enter password</small> -->
+                         <label for="">Confirm Password</label>
+                         <input type="password" class="form-control" formControlName="password_confirmation"
+                         [class.is-invalid]="registerForm.errors?.misMatch">
+                         <div class="alert alert-danger mt-1" *ngIf="registerForm.errors?.misMatch">
+                             <small>password not matched</small>
+                         </div>
+                    </div>
+
+                     <button [disabled]="loading" type="submit" class="btn btn-info float-right">Register</button>
+
+                </form>
+
+            </div>
+        </div>
+    </div>
+</div>
